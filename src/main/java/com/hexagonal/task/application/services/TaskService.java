@@ -3,6 +3,7 @@ package com.hexagonal.task.application.services;
 import com.hexagonal.task.domain.models.AdditionalTaskInfo;
 import com.hexagonal.task.domain.models.Task;
 import com.hexagonal.task.domain.ports.in.*;
+import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 import java.util.Optional;
