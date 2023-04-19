@@ -1,6 +1,7 @@
 package com.hexagonal.task.infrastructure.entities;
 
 import com.hexagonal.task.domain.models.Task;
+import javax.persistence.Table;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "task")
 public class TaskEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

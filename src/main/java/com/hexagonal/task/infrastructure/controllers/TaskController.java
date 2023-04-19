@@ -1,6 +1,7 @@
 package com.hexagonal.task.infrastructure.controllers;
 
 import com.hexagonal.task.application.services.TaskService;
+import com.hexagonal.task.domain.models.AdditionalTaskInfo;
 import com.hexagonal.task.domain.models.Task;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,11 @@ public class TaskController {
     this.taskService = taskService;
   }
   
-  /**@PostMapping
+  @PostMapping
   public ResponseEntity<Task> createTask(@RequestBody Task task){
     Task createdTask = taskService.createTask(task);
-    return new ResponseEntity();
-  }*/
+    return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
+  }
   
   @GetMapping("/{id}")
   public ResponseEntity<Task> getTaskByid(@PathVariable Long id){
@@ -45,6 +46,18 @@ public class TaskController {
     return new ResponseEntity<>(taskOpt.get(), HttpStatus.OK);
   }
   
-  //@DeleteMapping("/{id}")
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+    Boolean wasDeleted = taskService.deleteTask(id);
+    if(wasDeleted){
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  }
   
+  @GetMapping("/{id}/addInfo")
+  public ResponseEntity<AdditionalTaskInfo> getAdditionalTaskInfo(@PathVariable Long id){
+    AdditionalTaskInfo ats = taskService.getAdditionalTaskInfo(id);
+    return new ResponseEntity<>(ats, HttpStatus.OK);
+  }
 }
